@@ -1,0 +1,23 @@
+﻿@model IEnumerable<hello.Models.Employee>
+@{
+    ViewData["Title"] = "Index";
+}
+<h1>Employee Details</h1>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col">id</th>
+            <th scope="col">name</th>
+            <th scope="col">email</th>
+            <th scope="col">handle</th>
+        </tr>
+    </thead>
+    @foreach (var employee in Model)
+{
+            <tr>
+                <td scope="row">@employee.id</td>
+                <td scope="row">@employee.name</td>
+                <td scope="row">@employee.email</td>
+            </tr>
+}
+</table>
