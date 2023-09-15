@@ -29,11 +29,55 @@ namespace hello.Controllers
             return View();
         }
 
+        public IActionResult Edit(int id)
+        {
+            var employee = _context.Employees.Find(id);
+            if (employee == null) {
+                return NotFound();
+            }
+            return View(employee);
+        }
+        public IActionResult Delete(int id)
+        {
+            var employee = _context.Employees.Find(id);
+            if (employee == null) {
+                return NotFound();
+            }
+            return View(employee);
+        }
+
         [HttpPost]
         public IActionResult Create(Employee employee) {
             _context.Employees.Add(employee);
             _context.SaveChanges();
-            return View();
+            return View(Index);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(int id, Employee employee)
+        {
+            if (id != employee.id)
+            {
+                return NotFound();
+            }
+            if (ModelState.IsValid) {
+                _context.Update(employee);
+                _context.SaveChanges();
+            }
+            return View(employee);
+        }
+
+        [HttpPost]
+        public IActionResult Delete(int id, Employee employee)
+        {
+            if (employee == null) {
+                return NotFound();
+            }
+            if (ModelState.IsValid) {
+                _context.Employees.Remove(employee);
+                _context.SaveChanges();
+            }
+            return RedirectToAction(nameof(Index));
         }
     }
 }
