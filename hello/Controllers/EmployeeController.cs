@@ -21,6 +21,10 @@ namespace hello.Controllers
         public IActionResult Index()
         {
             var employees = _context.Employees.ToList();
+            //Add dummy data into session
+            HttpContext.Session.SetString("welcomeMsg", "Good Morning");
+            String msg = HttpContext.Session.GetString("welcomeMsg") ?? "";
+            ViewBag.Message = msg;
             return View(employees);
         }
         // GET: /<controller>/
